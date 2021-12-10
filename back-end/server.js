@@ -74,4 +74,18 @@ app.delete('/api/friends/:id', async (req, res) => {
   }
 });
 
+app.put('/api/friends/:id', async (req, res) => {
+  try {
+    let friend = await Friend.findOne({
+	_id: req.params.id
+    });
+    friend.name = req.body.name;
+    await friend.save();
+    res.send(friend);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 app.listen(3002, () => console.log('Server listening on port 3002!'));

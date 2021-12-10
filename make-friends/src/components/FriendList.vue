@@ -7,6 +7,11 @@
         <router-link :to="{name: 'Profile', params: {id: friend.id}}">
                 <img class="profile-pic" :src="friend.avatar">
         </router-link>
+        <button class="add-friend" @click="deleteFriend(friend)">Delete</button>
+	<form>
+           <button class="add-friend" type="Submit" @click="editName(friend)">Edit</button>
+           <input class="name-change" placeholder="Edit Name" v-model="newName">
+        </form>
       </div>
     </div>
   </div>
@@ -15,10 +20,38 @@
 
 
 <script>
+import axios from 'axios';
 export default {
   name: 'FriendList',
+  data() {
+    return {
+      newName: "",
+    }
+  },
   props: {
     friends: Object
+  },
+  methods: {
+    async deleteFriend(friend) {
+      try {
+        await axios.delete("/api/friends/" + friend._id);
+        return true;
+      } catch (error) {
+        //console.log(error);
+      }
+    },
+    async editName(friend) {
+      try {
+        await axios.put("/api/friends/" + friend._id, {
+          name: this.newName,
+        });
+	console.log("in editName");
+        console.log(this.newName);
+        return true;
+      } catch (error) {
+        //console.log(error);
+      }
+    },
   },
 }
 </script>
@@ -60,6 +93,12 @@ export default {
 }
 
 .add-friend{
+    width: 100px;
+    justify-self: center;
+    margin-bottom: 5px;
+}
+
+.change-name{
     width: 100px;
     justify-self: center;
 }
