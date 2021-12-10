@@ -8,7 +8,7 @@
     </div>
     <router-view/>
     <div class="footer">
-      <a href="https://github.com/cbaughan8/creative-project-3" class="footer-text">Github</a>
+      <a href="https://github.com/cbaughan8/cp4" class="footer-text">Github</a>
     </div>
   </div>
 </template>

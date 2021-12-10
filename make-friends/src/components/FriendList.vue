@@ -18,7 +18,7 @@
 export default {
   name: 'FriendList',
   props: {
-    friends: Array
+    friends: Object
   },
 }
 </script>

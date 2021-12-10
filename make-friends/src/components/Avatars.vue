@@ -7,7 +7,7 @@
         <router-link :to="{name: 'Profile', params: {id: avatar.id}}">
                 <img class="profile-pic" :src="avatar.avatar">
         </router-link>
-        <button class="add-friend" @click="addFriend(avatar)">Add Friend</button>
+        <button class="add-friend" @click="upload(avatar)">Add Friend</button>
       </div>
     </div>
   </div>
@@ -16,6 +16,7 @@
 
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Avatars',
   props: {
@@ -28,7 +29,26 @@ export default {
               if (avatar.id == this.$root.$data.friends[i].id) isFriend = true;
           }
           if (isFriend == false) this.$root.$data.friends.push(avatar);
-      }
+      },
+      async upload(avatar) {
+        try {
+          await axios.post('/api/friends', {
+            id: avatar.id,
+            avatar: avatar.avatar,
+            name: avatar.name,
+            gender: avatar.gender,
+            job: avatar.job,
+            ethnicity: avatar.ethnicity,
+            race: avatar.race,
+            email: avatar.email,
+          });
+        console.log("In upload");
+        console.log(avatar);
+        console.log(avatar.avatar);
+        } catch (error) {
+        //console.log(error);
+        }
+    },
   },
   
 }
